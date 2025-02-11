@@ -51,7 +51,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item nav-profile">
                         <a class="nav-link" href="/dashboard">
-                            <span class="nav-profile-name">SIP-BANSOS</span>
+                            {{--  <span class="nav-profile-name">SIP-BANSOS</span>  --}}
+                            <span class="nav-profile-name">TESTING</span>
                         </a>
                     </li>
                     <li class="nav-item nav-user-status">
