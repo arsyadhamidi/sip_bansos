@@ -19,7 +19,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-8 my-5">
                         <div class="mb-3 py-5">
-                            <h1 class="welcome-text">Selamat Datang di <span class="text-primary">SIBANSOS</span></h1>
+                            <h1 class="welcome-text">Selamat Datang di <span class="text-primary">SIP-Bansos</span></h1>
                             <h4 class="user-greeting">Halo, <span>{{ Auth()->user()->name ?? 'Pengguna' }}</span>. Kami
                                 senang Anda kembali!</h4>
                             <p>Jelajahi fitur kami dan kelola kebutuhan Anda dengan lebih mudah.</p>
