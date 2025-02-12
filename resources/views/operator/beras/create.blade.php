@@ -9,7 +9,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb" style="margin-left: -15px">
                     <li class="breadcrumb-item"><a href="/dashboard" class="text-primary">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('data-beras.index') }}" class="text-primary">Data BPNT</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('data-beras.index') }}" class="text-primary">Data BPNT</a>
+                    </li>
                     <li class="breadcrumb-item active" aria-current="page">Tambah Data Beras Cpp</li>
                 </ol>
             </nav>
@@ -88,6 +89,24 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3">
+                                        <label>Status Penerimaan</label>
+                                        <select name="status" class="form-control @error('status') is-invalid @enderror"
+                                            id="selectedStatus" style="width: 100%">
+                                            <option value="">Pilih Status Penerima</option>
+                                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Sudah
+                                                Diambil</option>
+                                            <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>Belum
+                                                Diambil</option>
+                                        </select>
+                                        @error('status')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
                                         <label>Alamat</label>
                                         <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="5"
                                             placeholder="Masukan alamat">{{ old('alamat') }}</textarea>
@@ -106,3 +125,12 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        $(document).ready(function() {
+            $('#selectedStatus').select2({
+                theme: 'bootstrap4',
+            });
+        });
+    </script>
+@endpush

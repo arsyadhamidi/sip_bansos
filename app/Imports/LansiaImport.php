@@ -53,6 +53,7 @@ class LansiaImport implements ToModel
             'nik' => $nik,         // Column D after cleaned
             'alamat' => $row[3],   // Column E
             'rt' => $row[4],
+            'status' => $row[5],
             'created_at' => Carbon::now(),
             'created_by' => $this->createdBy,
             'is_deleted' => '1',

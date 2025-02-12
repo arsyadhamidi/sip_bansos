@@ -82,6 +82,23 @@
                                     <input type="text" class="form-control" id="searchByDate">
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <select name="status" class="form-control @error('status') is-invalid @enderror"
+                                        id="selectedStatus" style="width: 100%">
+                                        <option value="">Pilih Status Penerima</option>
+                                        <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Sudah
+                                            Diambil</option>
+                                        <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>Belum
+                                            Diambil</option>
+                                    </select>
+                                    @error('status')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,6 +125,7 @@
                                     <th>NIK</th>
                                     <th>Alamat</th>
                                     <th>RT</th>
+                                    <th>Status</th>
                                     <th>Tanggal</th>
                                 </tr>
                             </thead>
@@ -125,6 +143,10 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('#selectedStatus').select2({
+                theme: 'bootstrap4',
             });
 
             var startOfMonth = moment().startOf('month'); // Start of current month
@@ -180,15 +202,14 @@
                         // Setelah itu, Anda bisa melanjutkan dengan parameter pencarian atau filter lainnya
                         data.search = $('#myTable_filter input').val();
 
-                        $('#generatepdf').attr('href', "#");
-                        $('#generateexcel').attr('href', "#");
-
                         var startDate = $('#searchByDate').data('daterangepicker').startDate.format(
                             'YYYY-MM-DD');
                         var endDate = $('#searchByDate').data('daterangepicker').endDate.format(
                             'YYYY-MM-DD');
                         data.start_date = startDate;
                         data.end_date = endDate;
+
+                        data.status = $('#selectedStatus').val();
 
                         // Mengatur URL untuk export Excel dengan parameter filter
                         $('#generateexcel').attr('href',
@@ -222,6 +243,21 @@
                         defaultContent: '-',
                     },
                     {
+                        data: 'status',
+                        name: 'status',
+                        defaultContent: '-',
+                        render: function(data, type, row) {
+                            var status = row.status;
+                            if (status == '1') {
+                                return '<span class="badge badge-success">Sudah Diambil</span>';
+                            } else if (status == '2') {
+                                return '<span class="badge badge-warning">Belum Diambil</span>';
+                            } else {
+                                return 'Belum';
+                            }
+                        }
+                    },
+                    {
                         data: 'tgl_pkh',
                         name: 'tgl_pkh',
                         defaultContent: '-',
@@ -231,6 +267,10 @@
                 order: [
                     [1, 'desc']
                 ]
+            });
+
+            $('#selectedStatus').on('change', function() {
+                myTable.ajax.reload();
             });
 
             // Define table variable

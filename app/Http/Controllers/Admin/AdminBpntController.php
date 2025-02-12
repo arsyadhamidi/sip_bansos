@@ -40,6 +40,10 @@ class AdminBpntController extends Controller
                 $query->whereBetween('tgl_bpnt', [$start_date, $end_date]);
             }
 
+            if ($request->has('status') && !empty($request->status)) {
+                $query->where('status', $request->status);
+            }
+
             $totalRecords = $query->count(); // Hitung total data
 
             $data = $query->paginate($perPage); // Gunakan paginate() untuk membagi data sesuai dengan halaman dan jumlah per halaman
@@ -68,6 +72,7 @@ class AdminBpntController extends Controller
             'alamat' => 'required|max:500',
             'rt' => 'required|max:255',
             'tgl_bpnt' => 'required',
+            'status' => 'required',
         ], [
             'penerima.required' => 'Nama penerima wajib diisi.',
             'penerima.max' => 'Nama penerima maksimal 255 karakter.',
@@ -78,6 +83,7 @@ class AdminBpntController extends Controller
             'rt.required' => 'RT wajib diisi.',
             'rt.max' => 'RT maksimal 255 karakter.',
             'tgl_bpnt.required' => 'Tanggal BPNT wajib diisi.',
+            'status.required' => 'Status wajib diisi.',
         ]);
 
         // Mengambil data pengguna yang sedang login
@@ -91,6 +97,7 @@ class AdminBpntController extends Controller
             'nik' => strtoupper($request->nik),           // Mengubah NIK menjadi huruf kapital
             'alamat' => strtoupper($request->alamat),     // Mengubah alamat menjadi huruf kapital
             'rt' => strtoupper($request->rt),             // Mengubah RT menjadi huruf kapital
+            'status' => strtoupper($request->status),             // Mengubah RT menjadi huruf kapital
             'created_at' => $carbons,
             'created_by' => $users->id,
             'is_deleted' => '1',
@@ -150,6 +157,7 @@ class AdminBpntController extends Controller
             'nik' => 'required|max:255',
             'alamat' => 'required|max:500',
             'rt' => 'required|max:255',
+            'status' => 'required|max:255',
         ], [
             'tgl_bpnt.required' => 'Tanggal BPNT wajib diisi.',
             'penerima.required' => 'Nama penerima wajib diisi.',
@@ -160,6 +168,8 @@ class AdminBpntController extends Controller
             'alamat.max' => 'Alamat maksimal 500 karakter.',
             'rt.required' => 'RT wajib diisi.',
             'rt.max' => 'RT maksimal 255 karakter.',
+            'status.required' => 'Status wajib diisi.',
+            'status.max' => 'Status maksimal 255 karakter.',
         ]);
 
         // Mencari data PKH berdasarkan ID
@@ -176,6 +186,7 @@ class AdminBpntController extends Controller
             'nik' => strtoupper($request->nik),           // Mengubah NIK menjadi huruf kapital
             'alamat' => strtoupper($request->alamat),     // Mengubah alamat menjadi huruf kapital
             'rt' => strtoupper($request->rt),             // Mengubah RT menjadi huruf kapital
+            'status' => strtoupper($request->status),
             'updated_at' => $carbons,
             'updated_by' => $users->id,                    // Menyimpan ID pengguna yang mengupdate
         ]);

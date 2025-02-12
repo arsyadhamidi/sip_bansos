@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nik');
             $table->text('alamat')->nullable();
             $table->string('rt')->nullable();
+            $table->string('status')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamp('updated_at')->nullable();

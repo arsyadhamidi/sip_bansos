@@ -30,6 +30,7 @@
                                     <th>NIK</th>
                                     <th>Alamat</th>
                                     <th>RT</th>
+                                    <th>Status</th>
                                     <th>Tanggal</th>
                                 </tr>
                             </thead>
@@ -99,6 +100,21 @@
                         data: 'rt',
                         name: 'rt',
                         defaultContent: '-',
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
+                        defaultContent: '-',
+                        render: function(data, type, row) {
+                            var status = row.status;
+                            if (status == '1') {
+                                return '<span class="badge badge-success">Sudah Diambil</span>';
+                            } else if (status == '2') {
+                                return '<span class="badge badge-warning">Belum Diambil</span>';
+                            } else {
+                                return 'Belum';
+                            }
+                        }
                     },
                     {
                         data: 'tgl_pkh',

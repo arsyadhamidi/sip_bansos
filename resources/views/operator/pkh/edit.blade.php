@@ -88,6 +88,24 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3">
+                                        <label>Status Penerimaan</label>
+                                        <select name="status" class="form-control @error('status') is-invalid @enderror"
+                                            id="selectedStatus" style="width: 100%">
+                                            <option value="">Pilih Status Penerima</option>
+                                            <option value="1" {{ $pkhs->status == '1' ? 'selected' : '' }}>Sudah
+                                                Diambil</option>
+                                            <option value="2" {{ $pkhs->status == '2' ? 'selected' : '' }}>Belum
+                                                Diambil</option>
+                                        </select>
+                                        @error('status')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
                                         <label>Alamat</label>
                                         <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="5"
                                             placeholder="Masukan alamat">{{ old('alamat', $pkhs->alamat ?? '-') }}</textarea>
@@ -106,3 +124,12 @@
         </div>
     </div>
 @endsection
+@push('custom-script')
+    <script>
+        $(document).ready(function() {
+            $('#selectedStatus').select2({
+                theme: 'bootstrap4',
+            });
+        });
+    </script>
+@endpush
