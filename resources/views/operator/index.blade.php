@@ -61,4 +61,98 @@
             </div>
         </div>
     </div>
+
+    {{--  Sudah Diambil  --}}
+    <div class="col-lg-12">
+        <div class="my-4">
+            <h3>Data Sudah Diambil</h3>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">PKH</h4>
+                    <h1>{{ $countSudahPkhs ?? '0'}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">BPNT</h4>
+                    <h1>{{ $countSudahBpnts ?? '0' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">LANSIA</h4>
+                    <h1>{{ $countSudahLansias ?? '0' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Beras CPP</h4>
+                    <h1>{{ $countSudahBeras ?? '0' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--  Belum Diambil  --}}
+    <div class="col-lg-12">
+        <div class="my-4">
+            <h3>Data Belum Diambil</h3>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">PKH</h4>
+                    <h1>{{ $countBelumPkhs ?? '0'}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">BPNT</h4>
+                    <h1>{{ $countBelumBpnts ?? '0' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">LANSIA</h4>
+                    <h1>{{ $countBelumLansias ?? '0' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Beras CPP</h4>
+                    <h1>{{ $countBelumBeras ?? '0' }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
