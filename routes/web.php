@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data-beras', [AdminBerasController::class, 'index'])->name('data-beras.index');
         Route::get('/data-beras/generateexcel', [AdminBerasController::class, 'generateexcel'])->name('data-beras.generateexcel');
         Route::get('/data-beras/create', [AdminBerasController::class, 'create'])->name('data-beras.create');
+        Route::get('/data-beras/generatepdf/{id}', [AdminBerasController::class, 'generatepdf'])->name('data-beras.generatepdf');
         Route::get('/data-beras/edit/{id}', [AdminBerasController::class, 'edit'])->name('data-beras.edit');
         Route::post('/data-beras/store', [AdminBerasController::class, 'store'])->name('data-beras.store');
         Route::post('/data-beras/update/{id}', [AdminBerasController::class, 'update'])->name('data-beras.update');
@@ -72,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data-lansia', [AdminLansiaController::class, 'index'])->name('data-lansia.index');
         Route::get('/data-lansia/generateexcel', [AdminLansiaController::class, 'generateexcel'])->name('data-lansia.generateexcel');
         Route::get('/data-lansia/create', [AdminLansiaController::class, 'create'])->name('data-lansia.create');
+        Route::get('/data-lansia/generatepdf/{id}', [AdminLansiaController::class, 'generatepdf'])->name('data-lansia.generatepdf');
         Route::get('/data-lansia/edit/{id}', [AdminLansiaController::class, 'edit'])->name('data-lansia.edit');
         Route::post('/data-lansia/store', [AdminLansiaController::class, 'store'])->name('data-lansia.store');
         Route::post('/data-lansia/update/{id}', [AdminLansiaController::class, 'update'])->name('data-lansia.update');
@@ -82,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data-bpnt', [AdminBpntController::class, 'index'])->name('data-bpnt.index');
         Route::get('/data-bpnt/generateexcel', [AdminBpntController::class, 'generateexcel'])->name('data-bpnt.generateexcel');
         Route::get('/data-bpnt/create', [AdminBpntController::class, 'create'])->name('data-bpnt.create');
+        Route::get('/data-bpnt/generatepdf/{id}', [AdminBpntController::class, 'generatepdf'])->name('data-bpnt.generatepdf');
         Route::get('/data-bpnt/edit/{id}', [AdminBpntController::class, 'edit'])->name('data-bpnt.edit');
         Route::post('/data-bpnt/store', [AdminBpntController::class, 'store'])->name('data-bpnt.store');
         Route::post('/data-bpnt/update/{id}', [AdminBpntController::class, 'update'])->name('data-bpnt.update');
@@ -92,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/data-pkh', [AdminPKHController::class, 'index'])->name('data-pkh.index');
         Route::get('/data-pkh/generateexcel', [AdminPKHController::class, 'generateexcel'])->name('data-pkh.generateexcel');
         Route::get('/data-pkh/create', [AdminPKHController::class, 'create'])->name('data-pkh.create');
+        Route::get('/data-pkh/generatepdf/{id}', [AdminPKHController::class, 'generatepdf'])->name('data-pkh.generatepdf');
         Route::get('/data-pkh/edit/{id}', [AdminPKHController::class, 'edit'])->name('data-pkh.edit');
         Route::post('/data-pkh/store', [AdminPKHController::class, 'store'])->name('data-pkh.store');
         Route::post('/data-pkh/update/{id}', [AdminPKHController::class, 'update'])->name('data-pkh.update');

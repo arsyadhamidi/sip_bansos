@@ -127,6 +127,7 @@
                                     <th>RT</th>
                                     <th>Status</th>
                                     <th>Tanggal</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                         </table>
@@ -261,6 +262,13 @@
                         data: 'tgl_pkh',
                         name: 'tgl_pkh',
                         defaultContent: '-',
+                    },
+                    {
+                        data: 'aksi',
+                        name: 'aksi',
+                        orderable: false,
+                        searchable: false,
+                        defaultContent: '-'
                     },
                 ],
 

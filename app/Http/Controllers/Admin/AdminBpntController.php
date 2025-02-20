@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use PDF;
 use App\Exports\BpntExport;
 use App\Http\Controllers\Controller;
 use App\Imports\BpntImport;
@@ -40,19 +41,27 @@ class AdminBpntController extends Controller
                 $query->whereBetween('tgl_bpnt', [$start_date, $end_date]);
             }
 
-            if ($request->has('status') && !empty($request->status)) {
-                $query->where('status', $request->status);
-            }
-
             $totalRecords = $query->count(); // Hitung total data
 
             $data = $query->paginate($perPage); // Gunakan paginate() untuk membagi data sesuai dengan halaman dan jumlah per halaman
+
+            $dataWithActions = $data->map(function ($item) {
+                $showUrl = route('data-bpnt.generatepdf', $item->id);
+
+                $item->aksi = '
+                    <a href="' . $showUrl . '" class="btn btn-info" target="_blank">
+                        <i class="fa fa-download"></i>
+                        Download
+                    </a>
+                ';
+                return $item;
+            });
 
             return response()->json([
                 'draw' => $request->input('draw'), // Ambil nomor draw dari permintaan
                 'recordsTotal' => $totalRecords, // Kirim jumlah total data
                 'recordsFiltered' => $totalRecords, // Jumlah data yang difilter sama dengan jumlah total
-                'data' => $data->items(), // Kirim data yang sesuai dengan halaman dan jumlah per halaman
+                'data' => $dataWithActions, // Kirim data yang sesuai dengan halaman dan jumlah per halaman
             ]);
         }
 
@@ -260,5 +269,13 @@ class AdminBpntController extends Controller
 
         $data = $query->orderBy('id', 'desc')->get();
         return Excel::download(new BpntExport($data), 'data-bpnt.xlsx');
+    }
+
+    public function generatepdf($id)
+    {
+    	$results = Bpnt::where('id', $id)->first();
+
+    	$pdf = PDF::loadview('operator.bpnt.export-pdf',['results'=> $results]);
+    	return $pdf->stream('data_bpnt.pdf');
     }
 }

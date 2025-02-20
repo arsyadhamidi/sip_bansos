@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use PDF;
 use App\Exports\BerasExport;
 use App\Http\Controllers\Controller;
 use App\Imports\BerasImport;
@@ -48,11 +49,23 @@ class AdminBerasController extends Controller
 
             $data = $query->paginate($perPage); // Gunakan paginate() untuk membagi data sesuai dengan halaman dan jumlah per halaman
 
+            $dataWithActions = $data->map(function ($item) {
+                $showUrl = route('data-beras.generatepdf', $item->id);
+
+                $item->aksi = '
+                    <a href="' . $showUrl . '" class="btn btn-info" target="_blank">
+                        <i class="fa fa-download"></i>
+                        Download
+                    </a>
+                ';
+                return $item;
+            });
+
             return response()->json([
                 'draw' => $request->input('draw'), // Ambil nomor draw dari permintaan
                 'recordsTotal' => $totalRecords, // Kirim jumlah total data
                 'recordsFiltered' => $totalRecords, // Jumlah data yang difilter sama dengan jumlah total
-                'data' => $data->items(), // Kirim data yang sesuai dengan halaman dan jumlah per halaman
+                'data' => $dataWithActions, // Kirim data yang sesuai dengan halaman dan jumlah per halaman
             ]);
         }
 
@@ -260,5 +273,13 @@ class AdminBerasController extends Controller
 
         $data = $query->orderBy('id', 'desc')->get();
         return Excel::download(new BerasExport($data), 'data-beras.xlsx');
+    }
+
+    public function generatepdf($id)
+    {
+    	$results = Beras::where('id', $id)->first();
+
+    	$pdf = PDF::loadview('operator.beras.export-pdf',['results'=> $results]);
+    	return $pdf->stream('data_beras.pdf');
     }
 }

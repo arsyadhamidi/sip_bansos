@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use PDF;
 use Carbon\Carbon;
 use App\Models\Pkh;
 use App\Models\User;
@@ -48,11 +49,23 @@ class AdminPKHController extends Controller
 
             $data = $query->paginate($perPage); // Gunakan paginate() untuk membagi data sesuai dengan halaman dan jumlah per halaman
 
+            $dataWithActions = $data->map(function ($item) {
+                $showUrl = route('data-pkh.generatepdf', $item->id);
+
+                $item->aksi = '
+                    <a href="' . $showUrl . '" class="btn btn-info" target="_blank">
+                        <i class="fa fa-download"></i>
+                        Download
+                    </a>
+                ';
+                return $item;
+            });
+
             return response()->json([
                 'draw' => $request->input('draw'), // Ambil nomor draw dari permintaan
                 'recordsTotal' => $totalRecords, // Kirim jumlah total data
                 'recordsFiltered' => $totalRecords, // Jumlah data yang difilter sama dengan jumlah total
-                'data' => $data->items(), // Kirim data yang sesuai dengan halaman dan jumlah per halaman
+                'data' => $dataWithActions, // Kirim data yang sesuai dengan halaman dan jumlah per halaman
             ]);
         }
 
@@ -260,5 +273,13 @@ class AdminPKHController extends Controller
 
         $data = $query->orderBy('id', 'desc')->get();
         return Excel::download(new PkhExport($data), 'data-pkh.xlsx');
+    }
+
+    public function generatepdf($id)
+    {
+    	$results = Pkh::where('id', $id)->first();
+
+    	$pdf = PDF::loadview('operator.pkh.export-pdf',['results'=> $results]);
+    	return $pdf->stream('data_pkh.pdf');
     }
 }
